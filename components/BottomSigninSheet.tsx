@@ -4,25 +4,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { GoogleSigninButtonView } from "./GoogleSigninButtonView";
 
 export const BottomSigninSheet = () => {
   const { bottom } = useSafeAreaInsets();
 
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
-      <TouchableOpacity style={[defaultStyles.btn, styles.btnLight]}>
-        <Ionicons name="logo-apple" size={14} style={styles.btnIcon} />
-        <Text style={styles.btnLightText}>Continue with Apple</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={[defaultStyles.btn, styles.btnDark]}>
-        <Ionicons
-          name="logo-google"
-          size={16}
-          style={styles.btnIcon}
-          color={"#fff"}
-        />
-        <Text style={styles.btnDarkText}>Continue with Google</Text>
-      </TouchableOpacity>
+      <GoogleSigninButtonView />
       <Link
         href={{
           pathname: "/signin",
