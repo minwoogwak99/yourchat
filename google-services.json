@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087180462828",
+    "project_id": "task-intelligence",
+    "storage_bucket": "task-intelligence.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087180462828:android:d82175fe6548000fe7e3c9",
+        "android_client_info": {
+          "package_name": "com.minwoogwak99.yourchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ9hwiWtoZPmBtiioLe0d1strx6tOAccI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
