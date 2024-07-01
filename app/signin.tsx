@@ -1,22 +1,13 @@
-import { SignupView } from "@/components/SignupView";
-import { useLocalSearchParams } from "expo-router";
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import AnimatedIntro from "@/components/AnimatedIntro";
+import { BottomSigninSheet } from "@/components/BottomSigninSheet";
+import { View } from "tamagui";
 
-export default function Signin() {
-  const { type } = useLocalSearchParams<{ type: "signup" | "signin" }>();
-  const { top } = useSafeAreaInsets();
-
+const Signin = () => {
   return (
-    <View style={[styles.container, { paddingTop: top }]}>
-      {type === "signup" && <SignupView />}
+    <View className="flex-1">
+      <AnimatedIntro />
+      <BottomSigninSheet />
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+};
+export default Signin;
