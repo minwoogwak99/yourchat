@@ -1,12 +1,12 @@
 import AnimatedIntro from "@/components/AnimatedIntro";
-import { BottomSigninSheet } from "@/components/BottomSigninSheet";
-import { View } from "tamagui";
+import { GoogleSigninButtonView } from "@/components/GoogleSigninButtonView";
+import { View } from "react-native";
 
 const Signin = () => {
   return (
     <View className="flex-1">
       <AnimatedIntro />
-      <BottomSigninSheet />
+      <GoogleSigninButtonView />
     </View>
   );
 };

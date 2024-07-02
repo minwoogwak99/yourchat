@@ -1,23 +1,15 @@
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { fsInitializingAtom, userAtom } from "@/utils/core";
+import auth from "@react-native-firebase/auth";
 import { Redirect } from "expo-router";
-import { useEffect, useState } from "react";
-import { Button, Text, View } from "tamagui";
+import { useAtom } from "jotai";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-
-  function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
+  const [initializing] = useAtom(fsInitializingAtom);
+  const [user] = useAtom(userAtom);
 
   if (initializing) return null;
+
   if (!user) {
     return <Redirect href={"/signin"} />;
   }
@@ -32,8 +24,7 @@ export default function Index() {
       }}
     >
       <Text>Hello, {user.email}</Text>
-      <Button
-        borderRadius="$5"
+      <TouchableOpacity
         onPress={async () => {
           try {
             await auth().signOut();
@@ -44,7 +35,7 @@ export default function Index() {
         }}
       >
         <Text>Logout</Text>
-      </Button>
+      </TouchableOpacity>
     </View>
   );
 }
