@@ -7,34 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01B707E33A2D5EEA27E34B61 /* Pods_yourchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44EC64EE2F549DB4C9FA3700 /* Pods_yourchat.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		38A954AD8DD8790271B43CB6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9683852541B6986ABD4FE844 /* PrivacyInfo.xcprivacy */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		689A235EE4394711A9D95F97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C94D0B7887264BA9949E2750 /* GoogleService-Info.plist */; };
+		9D98DEB5674F42A08449699D /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABE768F46984412ACEA922C /* noop-file.swift */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
-		B90F83DD63CA49DCB9A419C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 526CCB9682E446A4B1A164A1 /* GoogleService-Info.plist */; };
+		B8B33528E7619FE382ADAFFC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0710014D28690A42C50F0694 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		CAC83D23AE8141B09D473E33 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D29E186AE4BBAAEA7B6DF /* noop-file.swift */; };
+		C719CEEE13B06729D3C70629 /* Pods_yourchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C80E1AB3D5FCD1E448E8A704 /* Pods_yourchat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0710014D28690A42C50F0694 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = yourchat/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* yourchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yourchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = yourchat/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = yourchat/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = yourchat/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = yourchat/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = yourchat/main.m; sourceTree = "<group>"; };
-		422D29E186AE4BBAAEA7B6DF /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "yourchat/noop-file.swift"; sourceTree = "<group>"; };
-		44EC64EE2F549DB4C9FA3700 /* Pods_yourchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yourchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		526CCB9682E446A4B1A164A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "yourchat/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		20628BE676334E6B998B173C /* yourchat-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "yourchat-Bridging-Header.h"; path = "yourchat/yourchat-Bridging-Header.h"; sourceTree = "<group>"; };
+		3ABE768F46984412ACEA922C /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "yourchat/noop-file.swift"; sourceTree = "<group>"; };
 		6C2E3173556A471DD304B334 /* Pods-yourchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yourchat.debug.xcconfig"; path = "Target Support Files/Pods-yourchat/Pods-yourchat.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-yourchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yourchat.release.xcconfig"; path = "Target Support Files/Pods-yourchat/Pods-yourchat.release.xcconfig"; sourceTree = "<group>"; };
-		9683852541B6986ABD4FE844 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = yourchat/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		9D5BC42D1B064CD68EB81011 /* yourchat-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "yourchat-Bridging-Header.h"; path = "yourchat/yourchat-Bridging-Header.h"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = yourchat/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		C80E1AB3D5FCD1E448E8A704 /* Pods_yourchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yourchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C94D0B7887264BA9949E2750 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "yourchat/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-yourchat/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01B707E33A2D5EEA27E34B61 /* Pods_yourchat.framework in Frameworks */,
+				C719CEEE13B06729D3C70629 /* Pods_yourchat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,10 +61,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				526CCB9682E446A4B1A164A1 /* GoogleService-Info.plist */,
-				422D29E186AE4BBAAEA7B6DF /* noop-file.swift */,
-				9D5BC42D1B064CD68EB81011 /* yourchat-Bridging-Header.h */,
-				9683852541B6986ABD4FE844 /* PrivacyInfo.xcprivacy */,
+				C94D0B7887264BA9949E2750 /* GoogleService-Info.plist */,
+				3ABE768F46984412ACEA922C /* noop-file.swift */,
+				20628BE676334E6B998B173C /* yourchat-Bridging-Header.h */,
+				0710014D28690A42C50F0694 /* PrivacyInfo.xcprivacy */,
 			);
 			name = yourchat;
 			sourceTree = "<group>";
@@ -73,7 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				44EC64EE2F549DB4C9FA3700 /* Pods_yourchat.framework */,
+				C80E1AB3D5FCD1E448E8A704 /* Pods_yourchat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,14 +150,14 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "yourchat" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				B7FC3B468B3970C00A50F269 /* [Expo] Configure project */,
+				8A8FBBD1154ECF4841C8DE44 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				4AF58FEEC4CEBAC8788FFAAE /* [CP] Embed Pods Frameworks */,
-				699EFF50FFD14D4BE1079DCD /* [CP-User] [RNFB] Core Configuration */,
+				CAD529603B080D9B93282950 /* [CP] Embed Pods Frameworks */,
+				4CEE64C353F56922DB7C09E1 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -207,8 +207,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				B90F83DD63CA49DCB9A419C4 /* GoogleService-Info.plist in Resources */,
-				38A954AD8DD8790271B43CB6 /* PrivacyInfo.xcprivacy in Resources */,
+				689A235EE4394711A9D95F97 /* GoogleService-Info.plist in Resources */,
+				B8B33528E7619FE382ADAFFC /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,25 +252,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4AF58FEEC4CEBAC8788FFAAE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-yourchat/Pods-yourchat-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yourchat/Pods-yourchat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		699EFF50FFD14D4BE1079DCD /* [CP-User] [RNFB] Core Configuration */ = {
+		4CEE64C353F56922DB7C09E1 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -331,7 +313,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yourchat/Pods-yourchat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B7FC3B468B3970C00A50F269 /* [Expo] Configure project */ = {
+		8A8FBBD1154ECF4841C8DE44 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -350,6 +332,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-yourchat/expo-configure-project.sh\"\n";
 		};
+		CAD529603B080D9B93282950 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-yourchat/Pods-yourchat-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yourchat/Pods-yourchat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -360,7 +360,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				CAC83D23AE8141B09D473E33 /* noop-file.swift in Sources */,
+				9D98DEB5674F42A08449699D /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

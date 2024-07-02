@@ -1,9 +1,8 @@
-import SelectorView from "@/components/ui/Selector";
-import { ColorSet } from "@/constants/Colors";
+// import { ColorSet } from "@/constants/Colors";
 import { fsInitializingAtom, userAtom } from "@/utils/core";
 import { Redirect } from "expo-router";
 import { useAtom } from "jotai";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
   const [initializing] = useAtom(fsInitializingAtom);
@@ -17,7 +16,10 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <SelectorView />
+      {/* <SelectorView /> */}
+      <TouchableOpacity>
+        <Text>logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -27,6 +29,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: ColorSet.bgColor,
   },
 });
