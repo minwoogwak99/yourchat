@@ -1,4 +1,4 @@
-import Colors from "@/constants/Colors";
+import { Colors } from "@/constants/Colors";
 import { memo } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import Animated, {

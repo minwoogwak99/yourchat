@@ -1,3 +1,4 @@
+import { ColorSet } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
 import {
@@ -5,24 +6,10 @@ import {
   statusCodes,
 } from "@react-native-google-signin/google-signin";
 import { router } from "expo-router";
-import React, { useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-
-const WEB_CLIENT_ID =
-  "950066094933-7kc3p19r3e113eq2q7c8buivsr20m313.apps.googleusercontent.com";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export const GoogleSigninButtonView = () => {
-  useEffect(() => {
-    configureGoogleSignin();
-  }, []);
-
-  const configureGoogleSignin = () => {
-    GoogleSignin.configure({
-      scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-      webClientId: WEB_CLIENT_ID,
-    });
-  };
-
   const handleSignin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -51,19 +38,30 @@ export const GoogleSigninButtonView = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={handleSignin}>
-      <Ionicons name="logo-google" size={16} color="#fff" />
-      <Text style={styles.buttonText}>Continue with Google</Text>
-    </TouchableOpacity>
+    <View style={styles.btnsWrapper}>
+      <TouchableOpacity style={styles.button} onPress={handleSignin}>
+        <Ionicons name="logo-google" size={16} color="#fff" />
+        <Text style={styles.buttonText}>Continue with Google</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  btnsWrapper: {
+    backgroundColor: ColorSet.bgColor,
+    padding: 24,
+    paddingBottom: 42,
+    borderRadius: 12,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+  },
   button: {
-    backgroundColor: "#4285F4",
+    backgroundColor: ColorSet.buttonColor,
     flexDirection: "row",
     height: 48,
-    borderRadius: 4,
+    borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 16,
