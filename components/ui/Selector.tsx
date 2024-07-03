@@ -38,6 +38,10 @@ const SelectorView = () => {
 
 const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    bottom: 16,
+    alignSelf: "center",
+    // zIndex: 999,
     backgroundColor: ColorSet.secondary,
     borderWidth: 1,
     borderColor: ColorSet.borderColor,

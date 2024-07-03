@@ -2,7 +2,6 @@
 import { fsInitializingAtom, userAtom } from "@/utils/core";
 import { Redirect } from "expo-router";
 import { useAtom } from "jotai";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
   const [initializing] = useAtom(fsInitializingAtom);
@@ -14,20 +13,5 @@ export default function Index() {
     return <Redirect href={"/signin"} />;
   }
 
-  return (
-    <View style={styles.container}>
-      {/* <SelectorView /> */}
-      <TouchableOpacity>
-        <Text>logout</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  return <Redirect href={"/home"} />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

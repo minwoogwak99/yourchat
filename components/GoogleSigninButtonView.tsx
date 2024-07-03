@@ -17,7 +17,7 @@ export const GoogleSigninButtonView = () => {
       if (idToken) {
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
         await auth().signInWithCredential(googleCredential);
-        router.replace("/");
+        router.replace("/testtest");
         console.log("Successfully signed in with Google");
       } else {
         console.error("No ID token present");
@@ -49,10 +49,12 @@ export const GoogleSigninButtonView = () => {
 
 const styles = StyleSheet.create({
   btnsWrapper: {
-    backgroundColor: ColorSet.bgColor,
+    backgroundColor: ColorSet.secondary,
     padding: 24,
     paddingBottom: 42,
     borderRadius: 12,
+    borderWidth: 1,
+    borderColor: ColorSet.borderColor,
     position: "absolute",
     bottom: 0,
     width: "100%",
