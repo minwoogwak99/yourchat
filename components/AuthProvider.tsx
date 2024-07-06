@@ -10,7 +10,7 @@ const WEB_CLIENT_ID =
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const [initializing, setInitializing] = useAtom(fsInitializingAtom);
 
   useEffect(() => {

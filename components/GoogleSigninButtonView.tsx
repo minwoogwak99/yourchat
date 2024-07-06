@@ -17,7 +17,7 @@ export const GoogleSigninButtonView = () => {
       if (idToken) {
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
         await auth().signInWithCredential(googleCredential);
-        router.replace("/testtest");
+        router.replace("/");
         console.log("Successfully signed in with Google");
       } else {
         console.error("No ID token present");

@@ -11,23 +11,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         >
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
-              animation: "fade_from_bottom",
-              animationDuration: 200,
-            }}
-          />
-          <Stack.Screen
-            name="signin"
-            options={{
-              headerShown: false,
-              animation: "fade",
-              animationDuration: 100,
-            }}
-          />
-          <Stack.Screen name="home" />
+          <Stack.Screen name="(tabs)" />
         </Stack>
       </GestureHandlerRootView>
     </AuthProvider>

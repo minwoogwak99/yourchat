@@ -1,12 +1,8 @@
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
 import React from "react";
 
 const SigninLayout = () => {
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-    </Stack>
-  );
+  return <Slot />;
 };
 
 export default SigninLayout;
