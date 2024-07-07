@@ -6,4 +6,4 @@ export const userAtom = atom<FirebaseAuthTypes.User | null>(null);
 export const fsInitializingAtom = atom<boolean>(true);
 
 export const TodoItemListAtom = atom<TodoItem[]>([]);
-export const isTodoAddedAtom = atom<boolean>(false);
+export const gettingTodoItemsAtom = atom<boolean>(false);

@@ -23,11 +23,8 @@ const _layout = () => {
         drawerContent={CustomDrawerView}
         screenOptions={{ drawerHideStatusBarOnOpen: true }}
       >
-        <Drawer.Screen
-          name="index"
-          options={{ headerTitle: "", title: "Home" }}
-        />
-        <Drawer.Screen name="setting" />
+        <Drawer.Screen name="index" options={{ title: "Home" }} />
+        <Drawer.Screen name="setting" options={{ title: "Done" }} />
       </Drawer>
     </SQLiteProvider>
   );

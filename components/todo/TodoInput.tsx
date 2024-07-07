@@ -1,7 +1,9 @@
-import { isTodoAddedAtom, TodoItemListAtom } from "@/utils/core";
+import { gettingTodoItemsAtom } from "@/utils/core";
 import { addTodoItem } from "@/utils/Database";
 import { TodoItem } from "@/utils/types";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { addDays, format } from "date-fns";
+import Checkbox from "expo-checkbox";
 import { useSQLiteContext } from "expo-sqlite";
 import { useAtom } from "jotai";
 import { default as React, useRef, useState } from "react";
@@ -20,13 +22,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
 
 export const TodoInput = () => {
-  const [todos, setTodos] = useAtom(TodoItemListAtom);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState<Date | null>(null);
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const { bottom } = useSafeAreaInsets();
-  const [, setIsTodoAdded] = useAtom(isTodoAddedAtom);
+  const [, setIsTodoAdded] = useAtom(gettingTodoItemsAtom);
+  const [isImportant, setIsImportant] = useState(false);
 
   const titleInputRef = useRef<TextInput>(null);
   const descriptionInputRef = useRef<TextInput>(null);
@@ -41,12 +43,14 @@ export const TodoInput = () => {
       title: title.trim(),
       description: description.trim() || undefined,
       dueDate: dueDate || undefined,
-      createdAt: Date.now().toString(),
+      createdAt: new Date(),
+      isImportant,
     };
 
     addTodoItem(db, newTodo);
     setIsTodoAdded(true);
 
+    setIsImportant(false);
     setTitle("");
     setDescription("");
     setDueDate(null);
@@ -79,20 +83,35 @@ export const TodoInput = () => {
   return (
     <View>
       <View style={[styles.inputContainer, { paddingBottom: bottom }]}>
-        <TextInput
-          numberOfLines={3}
-          ref={titleInputRef}
-          style={styles.input}
-          multiline={true}
-          placeholder="Add a new todo..."
-          value={title}
-          onChangeText={handleTitleChange}
-          blurOnSubmit={false}
-          onSubmitEditing={() => descriptionInputRef.current?.focus()}
-        />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <TextInput
+            numberOfLines={3}
+            ref={titleInputRef}
+            style={styles.mainInput}
+            multiline={true}
+            placeholder="Add a new todo..."
+            value={title}
+            onChangeText={handleTitleChange}
+            blurOnSubmit={false}
+            onSubmitEditing={() => descriptionInputRef.current?.focus()}
+          />
+          <FontAwesome6 name="exclamation" size={20} color="red" />
+          <Checkbox
+            value={isImportant}
+            onValueChange={(value) => {
+              setIsImportant(value);
+            }}
+          />
+        </View>
         <TextInput
           ref={descriptionInputRef}
-          style={styles.input}
+          style={styles.descInput}
           placeholder="Description (optional)"
           value={description}
           onChangeText={setDescription}
@@ -190,12 +209,20 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#e0e0e0",
   },
-  input: {
+  mainInput: {
     borderWidth: 1,
     borderColor: "#e0e0e0",
     borderRadius: 5,
     padding: 10,
-    marginBottom: 10,
+    marginRight: "auto",
+    flex: 1,
+  },
+  descInput: {
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 10,
   },
   dateButton: {
     backgroundColor: "#f0f0f0",

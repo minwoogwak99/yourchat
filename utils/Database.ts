@@ -24,7 +24,9 @@ export const migrateDbIfNeeded = async (db: SQLiteDatabase) => {
         title TEXT NOT NULL,
         description TEXT,
         dueDate INTEGER,
-        createdAt string NOT NULL
+        createdAt INTEGER NOT NULL,
+        completedAt INTEGER,
+        isImportant INTEGER DEFAULT 0
       );
     `);
     currentDbVersion = 1;
@@ -38,14 +40,15 @@ export const migrateDbIfNeeded = async (db: SQLiteDatabase) => {
 export const addTodoItem = async (db: SQLiteDatabase, todo: TodoItem) => {
   try {
     await db.runAsync(
-      `INSERT INTO todos (id, title, description, dueDate, createdAt) 
-      VALUES (?, ?, ?, ?, ?);`,
+      `INSERT INTO todos (id, title, description, dueDate, createdAt, isImportant) 
+      VALUES (?, ?, ?, ?, ?, ?);`,
       [
         todo.id,
         todo.title,
         todo.description ?? null,
-        todo.dueDate?.toString() ?? null,
-        todo.createdAt,
+        todo.dueDate?.getTime() ?? null,
+        todo.createdAt.getTime(),
+        todo.isImportant ? 1 : 0,
       ]
     );
   } catch (error) {
@@ -54,8 +57,40 @@ export const addTodoItem = async (db: SQLiteDatabase, todo: TodoItem) => {
 };
 
 export const getAllTodos = async (db: SQLiteDatabase) => {
-  const result = await db.getAllAsync<TodoItem>(`SELECT * FROM todos 
+  const result =
+    await db.getAllAsync<TodoItem>(`SELECT * FROM todos WHERE completedAt IS NULL
     ORDER BY createdAt DESC;
     ;`);
   return result;
+};
+
+export const getAllCompletedTodos = async (db: SQLiteDatabase) => {
+  const result =
+    await db.getAllAsync<TodoItem>(`SELECT * FROM todos WHERE completedAt IS NOT NULL
+    ORDER BY completedAt DESC;
+    ;`);
+  return result;
+};
+
+export const completeTodoItem = async ({
+  db,
+  id,
+  isCompleted,
+}: {
+  db: SQLiteDatabase;
+  id: string;
+  isCompleted: boolean;
+}) => {
+  const statement = await db.prepareAsync(
+    `UPDATE todos SET completedAt = ? WHERE id = ?;`
+  );
+  try {
+    if (isCompleted) {
+      await statement.executeAsync([new Date().getTime(), id]);
+    } else if (!isCompleted) {
+      await statement.executeAsync([null, id]);
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
 };
