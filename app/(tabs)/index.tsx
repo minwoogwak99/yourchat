@@ -1,30 +1,49 @@
-import { DrawerActions } from "@react-navigation/native";
-import { useNavigation } from "expo-router";
-import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { TodoInput } from "@/components/todo/TodoInput";
+import { TodoSingleItem } from "@/components/todo/TodoSingleItem";
+import { isTodoAddedAtom, TodoItemListAtom } from "@/utils/core";
+import { getAllTodos } from "@/utils/Database";
+import { useSQLiteContext } from "expo-sqlite";
+import { useAtom } from "jotai";
+import React, { useEffect } from "react";
+import { FlatList, KeyboardAvoidingView, Platform } from "react-native";
 
-const Home = () => {
-  const navigation = useNavigation();
+// Schema
 
-  const onToggle = () => {
-    navigation.dispatch(DrawerActions.openDrawer);
+const TodoApp = () => {
+  const [todoItemList, setTodoItemList] = useAtom(TodoItemListAtom);
+  const db = useSQLiteContext();
+  const [isTodoAdded, setIsTodoAdded] = useAtom(isTodoAddedAtom);
+
+  const fetchTodoList = async () => {
+    const result = await getAllTodos(db);
+    setTodoItemList(result);
   };
 
+  useEffect(() => {
+    fetchTodoList();
+  }, []);
+
+  useEffect(() => {
+    if (isTodoAdded) {
+      fetchTodoList();
+      setIsTodoAdded(false);
+    }
+  }, [isTodoAdded]);
+
   return (
-    <View style={styles.container}>
-      <Text>This is Home</Text>
-      <Pressable onPress={onToggle}>
-        <Text>open</Text>
-      </Pressable>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+    >
+      <FlatList
+        data={todoItemList}
+        renderItem={TodoSingleItem}
+        keyExtractor={(item) => item.id}
+        style={{ flex: 1 }}
+      />
+      <TodoInput />
+    </KeyboardAvoidingView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-export default Home;
+export default TodoApp;

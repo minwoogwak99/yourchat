@@ -1,7 +1,9 @@
 import { CustomDrawerView } from "@/components/CustomDrawerView";
 import { fsInitializingAtom, userAtom } from "@/utils/core";
+import { migrateDbIfNeeded } from "@/utils/Database";
 import { Redirect } from "expo-router";
 import { Drawer } from "expo-router/drawer";
+import { SQLiteProvider } from "expo-sqlite";
 import { useAtom } from "jotai";
 import React from "react";
 
@@ -16,13 +18,18 @@ const _layout = () => {
   }
 
   return (
-    <Drawer drawerContent={CustomDrawerView}>
-      <Drawer.Screen
-        name="index"
-        options={{ headerTitle: "", title: "Home" }}
-      />
-      <Drawer.Screen name="setting" />
-    </Drawer>
+    <SQLiteProvider databaseName="test2.db" onInit={migrateDbIfNeeded}>
+      <Drawer
+        drawerContent={CustomDrawerView}
+        screenOptions={{ drawerHideStatusBarOnOpen: true }}
+      >
+        <Drawer.Screen
+          name="index"
+          options={{ headerTitle: "", title: "Home" }}
+        />
+        <Drawer.Screen name="setting" />
+      </Drawer>
+    </SQLiteProvider>
   );
 };
 
