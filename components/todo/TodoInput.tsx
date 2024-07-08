@@ -6,21 +6,23 @@ import { addDays, format } from "date-fns";
 import Checkbox from "expo-checkbox";
 import { useSQLiteContext } from "expo-sqlite";
 import { useAtom } from "jotai";
-import { default as React, useRef, useState } from "react";
+import { default as React, useEffect, useRef, useState } from "react";
 import {
   Keyboard,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import { Calendar, DateData } from "react-native-calendars";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
+import CalendarSelectModal from "./CalendarSelectModal";
 
-export const TodoInput = () => {
+interface TodoInputProps {
+  setisAddingTodo: (isAddingTodo: boolean) => void;
+}
+export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState<Date | null>(null);
@@ -33,6 +35,10 @@ export const TodoInput = () => {
   const titleInputRef = useRef<TextInput>(null);
   const descriptionInputRef = useRef<TextInput>(null);
   const db = useSQLiteContext();
+
+  useEffect(() => {
+    if (titleInputRef.current) titleInputRef.current.focus();
+  }, []);
 
   const addTodo = () => {
     if (title.trim() === "") return;
@@ -76,13 +82,23 @@ export const TodoInput = () => {
     }
   };
 
-  const handleDateSelect = (day: DateData) => {
-    setDueDate(new Date(day.timestamp));
-  };
-
   return (
-    <View>
-      <View style={[styles.inputContainer, { paddingBottom: bottom }]}>
+    <>
+      <View style={[styles.inputContainer]}>
+        <View>
+          <Pressable
+            style={{ alignSelf: "flex-end", paddingRight: 5 }}
+            onPress={() => {
+              setIsImportant(false);
+              setTitle("");
+              setDescription("");
+              setDueDate(null);
+              setisAddingTodo(false);
+            }}
+          >
+            <Text>Cancel</Text>
+          </Pressable>
+        </View>
         <View
           style={{
             flexDirection: "row",
@@ -157,59 +173,14 @@ export const TodoInput = () => {
           <Text style={styles.addButtonText}>Add Todo</Text>
         </Pressable>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isCalendarVisible}
-      >
-        <View style={[styles.calendarContainer, { paddingBottom: bottom }]}>
-          <View style={{ padding: 4, paddingHorizontal: 12 }}>
-            <Pressable
-              style={{
-                alignSelf: "flex-end",
-                paddingVertical: 8,
-                paddingHorizontal: 16,
-                borderRadius: 12,
-              }}
-              onPress={() => setIsCalendarVisible(false)}
-            >
-              <Text>Done</Text>
-            </Pressable>
-          </View>
-          <Calendar
-            onDayPress={handleDateSelect}
-            markedDates={{
-              [format(dueDate || Date.now(), "yyyy-MM-dd")]: {
-                selected: true,
-                marked: true,
-                selectedColor: "blue",
-              },
-            }}
-            theme={{
-              backgroundColor: "#ffffff",
-              calendarBackground: "#ffffff",
-              textSectionTitleColor: "#b6c1cd",
-              selectedDayBackgroundColor: "#00adf5",
-              selectedDayTextColor: "#ffffff",
-              todayTextColor: "#00adf5",
-              dayTextColor: "#2d4150",
-              textDisabledColor: "#d9e1e8",
-              dotColor: "#00adf5",
-              selectedDotColor: "#ffffff",
-              arrowColor: "orange",
-              monthTextColor: "blue",
-              indicatorColor: "blue",
-              textDayFontWeight: "300",
-              textMonthFontWeight: "bold",
-              textDayHeaderFontWeight: "300",
-              textDayFontSize: 16,
-              textMonthFontSize: 16,
-              textDayHeaderFontSize: 16,
-            }}
-          />
-        </View>
-      </Modal>
-    </View>
+
+      <CalendarSelectModal
+        dueDate={dueDate}
+        setDueDate={setDueDate}
+        isCalendarVisible={isCalendarVisible}
+        setIsCalendarVisible={setIsCalendarVisible}
+      />
+    </>
   );
 };
 
