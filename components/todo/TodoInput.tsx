@@ -14,7 +14,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { Calendar, DateData } from "react-native-calendars";
@@ -29,6 +28,7 @@ export const TodoInput = () => {
   const { bottom } = useSafeAreaInsets();
   const [, setIsTodoAdded] = useAtom(gettingTodoItemsAtom);
   const [isImportant, setIsImportant] = useState(false);
+  const [inputHeight, setInputHeight] = useState(40);
 
   const titleInputRef = useRef<TextInput>(null);
   const descriptionInputRef = useRef<TextInput>(null);
@@ -90,17 +90,28 @@ export const TodoInput = () => {
             gap: 10,
           }}
         >
-          <TextInput
-            numberOfLines={3}
-            ref={titleInputRef}
-            style={styles.mainInput}
-            multiline={true}
-            placeholder="Add a new todo..."
-            value={title}
-            onChangeText={handleTitleChange}
-            blurOnSubmit={false}
-            onSubmitEditing={() => descriptionInputRef.current?.focus()}
-          />
+          <View style={{ paddingVertical: 10, flex: 1, maxHeight: 120 }}>
+            <TextInput
+              ref={titleInputRef}
+              style={[
+                styles.mainInput,
+                { height: inputHeight, maxHeight: 100 },
+              ]}
+              multiline={true}
+              placeholder="Add a new todo..."
+              textAlignVertical="center"
+              value={title}
+              onChangeText={handleTitleChange}
+              blurOnSubmit={false}
+              onContentSizeChange={(e) => {
+                console.log(e.nativeEvent.contentSize.height);
+                setInputHeight(
+                  Math.max(40, e.nativeEvent.contentSize.height + 20)
+                );
+              }}
+              onSubmitEditing={() => descriptionInputRef.current?.focus()}
+            />
+          </View>
           <FontAwesome6 name="exclamation" size={20} color="red" />
           <Checkbox
             value={isImportant}
@@ -118,7 +129,7 @@ export const TodoInput = () => {
           onSubmitEditing={addTodo}
         />
         <View style={{ flexDirection: "row", gap: 12, marginBottom: 10 }}>
-          <TouchableOpacity
+          <Pressable
             style={styles.dateButton}
             onPress={() => setIsCalendarVisible(true)}
           >
@@ -127,7 +138,7 @@ export const TodoInput = () => {
             ) : (
               <Text>Select Due Date</Text>
             )}
-          </TouchableOpacity>
+          </Pressable>
           <Pressable
             style={{
               justifyContent: "center",
@@ -142,9 +153,9 @@ export const TodoInput = () => {
             <Text>Delete</Text>
           </Pressable>
         </View>
-        <TouchableOpacity style={styles.addButton} onPress={addTodo}>
+        <Pressable style={styles.addButton} onPress={addTodo}>
           <Text style={styles.addButtonText}>Add Todo</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <Modal
         animationType="slide"
@@ -214,15 +225,15 @@ const styles = StyleSheet.create({
     borderColor: "#e0e0e0",
     borderRadius: 5,
     padding: 10,
-    marginRight: "auto",
-    flex: 1,
+    fontSize: 16,
+    lineHeight: 20,
   },
   descInput: {
     borderWidth: 1,
     borderColor: "#e0e0e0",
     borderRadius: 5,
     padding: 10,
-    marginVertical: 10,
+    marginBottom: 10,
   },
   dateButton: {
     backgroundColor: "#f0f0f0",
