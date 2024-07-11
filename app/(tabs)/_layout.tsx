@@ -1,6 +1,7 @@
 import { CustomDrawerView } from "@/components/CustomDrawerView";
 import { fsInitializingAtom, userAtom } from "@/utils/core";
 import { migrateDbIfNeeded } from "@/utils/Database";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Redirect } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { SQLiteProvider } from "expo-sqlite";
@@ -19,13 +20,15 @@ const _layout = () => {
 
   return (
     <SQLiteProvider databaseName="test2.db" onInit={migrateDbIfNeeded}>
-      <Drawer
-        drawerContent={CustomDrawerView}
-        screenOptions={{ drawerHideStatusBarOnOpen: true }}
-      >
-        <Drawer.Screen name="index" options={{ title: "Home" }} />
-        <Drawer.Screen name="setting" options={{ title: "Done" }} />
-      </Drawer>
+      <BottomSheetModalProvider>
+        <Drawer
+          drawerContent={CustomDrawerView}
+          screenOptions={{ drawerHideStatusBarOnOpen: true }}
+        >
+          <Drawer.Screen name="index" options={{ title: "Home" }} />
+          <Drawer.Screen name="setting" options={{ title: "Done" }} />
+        </Drawer>
+      </BottomSheetModalProvider>
     </SQLiteProvider>
   );
 };

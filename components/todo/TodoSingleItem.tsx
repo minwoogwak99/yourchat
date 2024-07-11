@@ -72,13 +72,12 @@ export const TodoSingleItem = ({ item }: Props) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    // backgroundColor: "white",
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
     flexDirection: "row",
-    borderBottomWidth: 1,
-    borderBottomColor: "lightgray",
+    marginHorizontal: 5,
   },
   titleAndDesc: { flex: 1, paddingRight: 20, gap: 6 },
   todoTitle: {
@@ -92,6 +91,7 @@ const styles = StyleSheet.create({
   todoDescription: {
     fontSize: 14,
     color: "gray",
+    paddingLeft: 15,
   },
   todoDueDate: {
     fontSize: 12,

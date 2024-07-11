@@ -2,51 +2,36 @@ import { gettingTodoItemsAtom } from "@/utils/core";
 import { addTodoItem } from "@/utils/Database";
 import { TodoItem } from "@/utils/types";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { addDays, format } from "date-fns";
+import { BottomSheetModal, BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { addDays } from "date-fns";
 import Checkbox from "expo-checkbox";
 import { useSQLiteContext } from "expo-sqlite";
 import { useAtom } from "jotai";
-import { default as React, useEffect, useRef, useState } from "react";
-import {
-  Keyboard,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { default as React, useState } from "react";
+import { Keyboard, Pressable, StyleSheet, Text, View } from "react-native";
 import uuid from "react-native-uuid";
 import CalendarSelectModal from "./CalendarSelectModal";
 
 interface TodoInputProps {
-  setisAddingTodo: (isAddingTodo: boolean) => void;
+  InputViewBottomSheetRef: React.RefObject<BottomSheetModal>;
 }
-export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
-  const [title, setTitle] = useState("");
+export const TodoInput = ({ InputViewBottomSheetRef }: TodoInputProps) => {
+  const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState<Date | null>(null);
-  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
-  const { bottom } = useSafeAreaInsets();
   const [, setIsTodoAdded] = useAtom(gettingTodoItemsAtom);
   const [isImportant, setIsImportant] = useState(false);
   const [inputHeight, setInputHeight] = useState(40);
 
-  const titleInputRef = useRef<TextInput>(null);
-  const descriptionInputRef = useRef<TextInput>(null);
   const db = useSQLiteContext();
 
-  useEffect(() => {
-    if (titleInputRef.current) titleInputRef.current.focus();
-  }, []);
-
   const addTodo = () => {
-    if (title.trim() === "") return;
+    if (title?.trim() === "") return;
 
     const id = uuid.v4().toString();
     const newTodo: TodoItem = {
       id,
-      title: title.trim(),
+      title: title?.trim(),
       description: description.trim() || undefined,
       dueDate: dueDate || undefined,
       createdAt: new Date(),
@@ -61,6 +46,7 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
     setDescription("");
     setDueDate(null);
     Keyboard.dismiss();
+    InputViewBottomSheetRef.current?.close();
   };
 
   const parseNaturalLanguageDate = (input: string): Date | null => {
@@ -83,22 +69,8 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
   };
 
   return (
-    <>
+    <View style={{ backgroundColor: "red" }}>
       <View style={[styles.inputContainer]}>
-        <View>
-          <Pressable
-            style={{ alignSelf: "flex-end", paddingRight: 5 }}
-            onPress={() => {
-              setIsImportant(false);
-              setTitle("");
-              setDescription("");
-              setDueDate(null);
-              setisAddingTodo(false);
-            }}
-          >
-            <Text>Cancel</Text>
-          </Pressable>
-        </View>
         <View
           style={{
             flexDirection: "row",
@@ -107,8 +79,7 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
           }}
         >
           <View style={{ paddingVertical: 10, flex: 1, maxHeight: 120 }}>
-            <TextInput
-              ref={titleInputRef}
+            <BottomSheetTextInput
               style={[
                 styles.mainInput,
                 { height: inputHeight, maxHeight: 100 },
@@ -125,7 +96,6 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
                   Math.max(40, e.nativeEvent.contentSize.height + 20)
                 );
               }}
-              onSubmitEditing={() => descriptionInputRef.current?.focus()}
             />
           </View>
           <FontAwesome6 name="exclamation" size={20} color="red" />
@@ -136,8 +106,7 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
             }}
           />
         </View>
-        <TextInput
-          ref={descriptionInputRef}
+        <BottomSheetTextInput
           style={styles.descInput}
           placeholder="Description (optional)"
           value={description}
@@ -145,16 +114,7 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
           onSubmitEditing={addTodo}
         />
         <View style={{ flexDirection: "row", gap: 12, marginBottom: 10 }}>
-          <Pressable
-            style={styles.dateButton}
-            onPress={() => setIsCalendarVisible(true)}
-          >
-            {dueDate ? (
-              <Text>Due Date: {format(dueDate, "MMM d, yyyy")}</Text>
-            ) : (
-              <Text>Select Due Date</Text>
-            )}
-          </Pressable>
+          <CalendarSelectModal dueDate={dueDate} setDueDate={setDueDate} />
           <Pressable
             style={{
               justifyContent: "center",
@@ -173,14 +133,7 @@ export const TodoInput = ({ setisAddingTodo }: TodoInputProps) => {
           <Text style={styles.addButtonText}>Add Todo</Text>
         </Pressable>
       </View>
-
-      <CalendarSelectModal
-        dueDate={dueDate}
-        setDueDate={setDueDate}
-        isCalendarVisible={isCalendarVisible}
-        setIsCalendarVisible={setIsCalendarVisible}
-      />
-    </>
+    </View>
   );
 };
 
@@ -188,8 +141,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: "white",
     padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#e0e0e0",
   },
   mainInput: {
     borderWidth: 1,
@@ -206,13 +157,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
   },
-  dateButton: {
-    backgroundColor: "#f0f0f0",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    flex: 1,
-  },
   addButton: {
     backgroundColor: "#007AFF",
     padding: 15,
@@ -222,14 +166,5 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: "white",
     fontWeight: "bold",
-  },
-  calendarContainer: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "white",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    position: "absolute",
-    bottom: 0,
   },
 });
