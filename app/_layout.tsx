@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/components/AuthProvider";
+import "@/unistyles";
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 

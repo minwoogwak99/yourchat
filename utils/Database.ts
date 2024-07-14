@@ -1,6 +1,6 @@
 import * as FileSystem from "expo-file-system";
 import { SQLiteDatabase } from "expo-sqlite";
-import { TodoItem } from "./types";
+import { filterType, labelType, TodoItem } from "./types";
 
 export const migrateDbIfNeeded = async (db: SQLiteDatabase) => {
   console.log(FileSystem.documentDirectory);
@@ -28,6 +28,17 @@ export const migrateDbIfNeeded = async (db: SQLiteDatabase) => {
         completedAt INTEGER,
         isImportant INTEGER DEFAULT 0
       );
+      CREATE TABLE labels (
+        id TEXT PRIMARY KEY NOT NULL,
+        labelTitle TEXT NOT NULL,
+        labelColor TEXT 
+      );
+      CREATE TABLE filters (
+        id TEXT PRIMARY KEY NOT NULL,
+        filterTitle TEXT NOT NULL,
+        filterQuery TEXT NOT NULL,
+        filterColor TEXT
+      );
     `);
     currentDbVersion = 1;
   }
@@ -52,7 +63,7 @@ export const addTodoItem = async (db: SQLiteDatabase, todo: TodoItem) => {
       ]
     );
   } catch (error) {
-    console.log("aaaa", error);
+    console.log("error ADD TODO ITEM::", error);
   }
 };
 
@@ -91,6 +102,35 @@ export const completeTodoItem = async ({
       await statement.executeAsync([null, id]);
     }
   } catch (error) {
-    console.log("error", error);
+    console.log("error COMPLETE TODO::", error);
+  }
+};
+
+export const createLabel = async (db: SQLiteDatabase, label: labelType) => {
+  try {
+    await db.runAsync(
+      `INSERT INTO labels (id, labelTitle, labelColor) 
+      VALUES (?, ?, ?);`,
+      [label.id, label.labelTitle, label.labelColor ?? null]
+    );
+  } catch (error) {
+    console.log("error CREATE LABEL::", error);
+  }
+};
+
+export const createFilter = async (db: SQLiteDatabase, filter: filterType) => {
+  try {
+    await db.runAsync(
+      `INSERT INTO filters (id, filterTitle, filterQuery, filterColor) 
+      VALUES (?, ?, ?, ?);`,
+      [
+        filter.id,
+        filter.filterTitle,
+        filter.filterQuery,
+        filter.filterColor ?? null,
+      ]
+    );
+  } catch (error) {
+    console.log("error CREATE FILTER::", error);
   }
 };

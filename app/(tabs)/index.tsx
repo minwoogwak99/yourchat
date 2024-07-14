@@ -6,6 +6,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useAtom } from "jotai";
 import React, { useEffect } from "react";
 import { FlatList, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const TodoApp = () => {
   const db = useSQLiteContext();
@@ -30,17 +31,19 @@ const TodoApp = () => {
   }, [isTodoAdded]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        data={todoItemList}
-        renderItem={(item) => {
-          return <TodoSingleItem item={item.item} />;
-        }}
-        keyExtractor={(item) => item.id}
-        style={{ flex: 1, paddingTop: 10 }}
-      />
-      <InputBottomSheet />
-    </View>
+    <SafeAreaView edges={["top"]} style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={todoItemList}
+          renderItem={(item) => {
+            return <TodoSingleItem item={item.item} />;
+          }}
+          keyExtractor={(item) => item.id}
+          style={{ flex: 1, paddingTop: 10 }}
+        />
+        <InputBottomSheet />
+      </View>
+    </SafeAreaView>
   );
 };
 

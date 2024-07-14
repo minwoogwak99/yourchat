@@ -1,7 +1,8 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import React, { useCallback, useRef } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { TodoInput } from "./TodoInput";
 
 const InputBottomSheet = () => {
@@ -11,6 +12,8 @@ const InputBottomSheet = () => {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
+
+  const { styles } = useStyles(stylesheet);
 
   return (
     <>
@@ -37,10 +40,7 @@ const InputBottomSheet = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  contentContainer: {
-    // flex: 1,
-  },
+const stylesheet = createStyleSheet({
   addButton: {
     position: "absolute",
     bottom: 20,
