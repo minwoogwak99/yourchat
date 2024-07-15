@@ -118,6 +118,11 @@ export const createLabel = async (db: SQLiteDatabase, label: labelType) => {
   }
 };
 
+export const getLabels = async (db: SQLiteDatabase) => {
+  const result = await db.getAllAsync<labelType>(`SELECT * FROM labels;`);
+  return result;
+};
+
 export const createFilter = async (db: SQLiteDatabase, filter: filterType) => {
   try {
     await db.runAsync(
