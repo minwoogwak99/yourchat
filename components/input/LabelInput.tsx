@@ -1,3 +1,5 @@
+import { createLabel } from "@/utils/Database";
+import { useSQLiteContext } from "expo-sqlite";
 import React, { useState } from "react";
 import {
   FlatList,
@@ -7,15 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
-interface Label {
-  name: string;
-  color: string;
-}
-
-interface LabelInputProps {
-  onLabelCreate: (label: Label) => void;
-}
+import uuid from "react-native-uuid";
 
 const PRESET_COLORS = [
   "#FF6B6B", // Soft Red
@@ -28,15 +22,21 @@ const PRESET_COLORS = [
   "#82E0AA", // Light Green
 ];
 
-const LabelInput: React.FC<LabelInputProps> = ({ onLabelCreate }) => {
+const LabelInput = () => {
   const [labelName, setLabelName] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>(PRESET_COLORS[0]);
+  const db = useSQLiteContext();
 
   const handleCreateLabel = () => {
     if (labelName.trim() !== "") {
-      onLabelCreate({ name: labelName, color: selectedColor });
       setLabelName("");
       setSelectedColor(PRESET_COLORS[0]);
+
+      createLabel(db, {
+        id: uuid.v4().toString(),
+        labelTitle: labelName,
+        labelColor: selectedColor,
+      });
     }
   };
 

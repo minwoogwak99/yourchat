@@ -1,3 +1,4 @@
+import AccordionItem from "@/components/AccordionItem";
 import LabelInput from "@/components/input/LabelInput";
 import { getLabels } from "@/utils/Database";
 import { labelType } from "@/utils/types";
@@ -13,45 +14,6 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-interface AccordionItemProps {
-  isExpanded: Animated.SharedValue<boolean>;
-  children: React.ReactNode;
-  viewKey: string;
-}
-const AccordionItem = ({
-  isExpanded,
-  children,
-  viewKey,
-}: AccordionItemProps) => {
-  const height = useSharedValue(0);
-
-  const derivedHeight = useDerivedValue(() =>
-    withSpring(height.value * Number(isExpanded.value), {
-      damping: 40,
-      stiffness: 100,
-    })
-  );
-  const bodyStyle = useAnimatedStyle(() => ({
-    height: derivedHeight.value,
-  }));
-
-  return (
-    <Animated.View
-      key={`accordionItem_${viewKey}`}
-      style={[styles.animatedView, bodyStyle]}
-    >
-      <View
-        onLayout={(e) => {
-          height.value = e.nativeEvent.layout.height;
-        }}
-        style={styles.wrapper}
-      >
-        {children}
-      </View>
-    </Animated.View>
-  );
-};
 
 const LabelListView = () => {
   const open = useSharedValue(false);
@@ -93,25 +55,29 @@ const LabelListView = () => {
 
       <AccordionItem isExpanded={open} viewKey="Accordion">
         <View style={{ borderWidth: 1, width: "100%" }}>
-          <View
-            style={{
-              padding: 10,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text>No Labels</Text>
-            <Pressable>
-              <Text>Create Label</Text>
-            </Pressable>
+          <View>
+            {labels.length > 0 && (
+              <FlatList
+                data={labels}
+                renderItem={(item) => {
+                  return (
+                    <View style={styles.labelItemStyle}>
+                      <View
+                        style={{
+                          backgroundColor: item.item.labelColor,
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                        }}
+                      />
+                      <Text>{item.item.labelTitle}</Text>
+                    </View>
+                  );
+                }}
+              />
+            )}
           </View>
-          <LabelInput onLabelCreate={() => {}} />
-          <FlatList
-            data={labels}
-            renderItem={(item) => {
-              return <Text>{item.item.labelTitle}</Text>;
-            }}
-          />
+          <LabelInput />
         </View>
       </AccordionItem>
     </SafeAreaView>
@@ -132,14 +98,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
-  wrapper: {
-    width: "100%",
-    position: "absolute",
-    display: "flex",
+  labelItemStyle: {
+    padding: 5,
+    paddingLeft: 15,
+    margin: 5,
+    marginTop: 10,
+    borderRadius: 10,
+    flexDirection: "row",
     alignItems: "center",
-  },
-  animatedView: {
-    width: "100%",
-    overflow: "hidden",
+    gap: 10,
   },
 });
