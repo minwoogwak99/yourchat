@@ -22,21 +22,26 @@ const PRESET_COLORS = [
   "#82E0AA", // Light Green
 ];
 
-const LabelInput = () => {
+interface LabelInputProps {
+  SetIsLabelAdding: (isLabelAdding: boolean) => void;
+}
+const LabelInput = ({ SetIsLabelAdding }: LabelInputProps) => {
   const [labelName, setLabelName] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>(PRESET_COLORS[0]);
   const db = useSQLiteContext();
 
-  const handleCreateLabel = () => {
+  const handleCreateLabel = async () => {
     if (labelName.trim() !== "") {
+      SetIsLabelAdding(true);
       setLabelName("");
       setSelectedColor(PRESET_COLORS[0]);
 
-      createLabel(db, {
+      await createLabel(db, {
         id: uuid.v4().toString(),
         labelTitle: labelName,
         labelColor: selectedColor,
       });
+      SetIsLabelAdding(false);
     }
   };
 

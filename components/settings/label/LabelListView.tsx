@@ -18,6 +18,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const LabelListView = () => {
   const open = useSharedValue(false);
   const [labels, setLabels] = useState<labelType[]>([]);
+  const [isLabelAdding, setIsLabelAdding] = useState(false);
   const db = useSQLiteContext();
 
   useEffect(() => {
@@ -25,8 +26,9 @@ const LabelListView = () => {
       const result = await getLabels(db);
       setLabels(result);
     };
-    fetchLabels();
-  }, []);
+
+    !isLabelAdding && fetchLabels();
+  }, [isLabelAdding]);
 
   const onPress = () => {
     open.value = !open.value;
@@ -41,6 +43,22 @@ const LabelListView = () => {
       transform: [{ rotate: `${iconRotation.value}deg` }],
     };
   });
+
+  const RenderItem = ({ item }: { item: labelType }) => {
+    return (
+      <View style={styles.labelItemStyle}>
+        <View
+          style={{
+            backgroundColor: item.labelColor,
+            width: 20,
+            height: 20,
+            borderRadius: 10,
+          }}
+        />
+        <Text>{item.labelTitle}</Text>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,24 +78,12 @@ const LabelListView = () => {
               <FlatList
                 data={labels}
                 renderItem={(item) => {
-                  return (
-                    <View style={styles.labelItemStyle}>
-                      <View
-                        style={{
-                          backgroundColor: item.item.labelColor,
-                          width: 20,
-                          height: 20,
-                          borderRadius: 10,
-                        }}
-                      />
-                      <Text>{item.item.labelTitle}</Text>
-                    </View>
-                  );
+                  return <RenderItem item={item.item} />;
                 }}
               />
             )}
           </View>
-          <LabelInput />
+          <LabelInput SetIsLabelAdding={setIsLabelAdding} />
         </View>
       </AccordionItem>
     </SafeAreaView>
@@ -93,6 +99,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     borderWidth: 2,
+    borderBottomWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
