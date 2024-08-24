@@ -18,3 +18,14 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+# ios, android folder
+ios/
+android/
+
+# credentials
+credentials/
+credentials.json
+GoogleService-Info.plist
+google-service.json
+app.json
