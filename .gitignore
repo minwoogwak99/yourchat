@@ -27,5 +27,5 @@ android/
 credentials/
 credentials.json
 GoogleService-Info.plist
-google-service.json
+google-services.json
 app.json
